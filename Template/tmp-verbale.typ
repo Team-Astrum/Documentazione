@@ -79,7 +79,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
         #grid(
           columns: (1fr, 1fr, 1fr),
           align(left)[Redazione: #redattore],
-          align(center)[Verifica: #verificatore],
+          align(center)[Verificatore: #verificatore],
           align(right)[Pagina #counter(page).display("1 / 1", both: true)]
         )
       ]
@@ -168,4 +168,23 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
   }
 
   body
+
+  v(1.5cm)
+  // Griglia per le firme
+  grid(
+    columns: (1fr, 1fr),
+    row-gutter: 0.65em,
+
+    // Firme
+    align(left + bottom)[#text(weight: "bold", style: "italic")[#verificatore]],
+    if azienda != none {
+      align(right + bottom)[#line(length: 85%, stroke: 0.5pt + deco-line)]
+    },
+
+    // Didascalie
+    align(left)[Firma del verificatore],
+    if azienda != none {
+      align(right)[Firma del referente aziendale]
+    }
+  )
 }
