@@ -1,4 +1,4 @@
-#import "/Documentazione/Template/tmp-verbale.typ": conf, decisioni
+#import "../../Template/tmp-verbale.typ": conf, decisioni
 
 #show: conf.with(
   tipo: "Interno", 
@@ -38,7 +38,7 @@ Thomas Morettin ha proposto due versioni del logo: una versione ottimizzata per 
     
     // Prima immagine con didascalia
     figure(
-      image("/Documentazione/Template/Assets/logo.svg", height: 1cm),
+      image("../../Template/Assets/logo.svg", height: 1cm),
       caption: [Versione logo grande],
       kind: "image",
       supplement: [Figura]
@@ -46,7 +46,7 @@ Thomas Morettin ha proposto due versioni del logo: una versione ottimizzata per 
     
     // Seconda immagine con didascalia
     figure(
-      image("/Documentazione/Template/Assets/logo-ridotto.svg", height: 1cm),
+      image("../../Template/Assets/logo-ridotto.svg", height: 1cm),
       caption: [Versione logo piccolo],
       kind: "image",
       supplement: [Figura]
