@@ -1,12 +1,12 @@
 /* MODELLO PER LETTERE DI CANDIDATURA
-Il seguente modello può essere incorporato nelle presentazioni tramite comando: #import "/Documentazione/Template/tmp-lettera.typ": conf
+Il seguente modello può essere incorporato nelle presentazioni tramite comando: #import "../../Template/tmp-lettera.typ": conf
 Le variabili vengono istanziate all'inizio di ciascuna presentazione.
 */
 
 // Set parametri di stile
 #let font = "Inter"
 
-#let logo = "/Documentazione/Template/Assets/logo.svg"
+#let logo = "./Assets/logo.svg"
 
 #let deco-line = rgb("#E5E9ED")
 #let txt-color = rgb("#1F2937")
@@ -35,7 +35,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
       gutter: 0.25cm,
       align: horizon,
 
-      image("/Documentazione/Template/Assets/logo-unipd.svg", height: 1.5cm),
+      image("./Assets/logo-unipd.svg", height: 1.5cm),
       line(angle: 90deg, length: 1.5cm, stroke: 0.5pt + deco-line),
       image(logo, height: 0.75cm)
     )

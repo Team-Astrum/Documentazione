@@ -1,12 +1,12 @@
 /* MODELLO PER VERBALI DI RIUNIONE
-Il seguente modello può essere incorporato nelle presentazioni tramite comando: #import "/Documentazione/Template/tmp-verbale.typ": conf, decisioni
+Il seguente modello può essere incorporato nelle presentazioni tramite comando: #import "../../Template/tmp-verbale.typ": conf, decisioni
 Le variabili vengono istanziate all'inizio di ciascuna presentazione.
 */
 
 // Set parametri di stile
 #let font = "Inter"
 
-#let logo = "/Documentazione/Template/Assets/logo.svg"
+#let logo = "./Assets/logo.svg"
 
 #let deco-line = rgb("#E5E9ED")
 #let txt-color = rgb("#1F2937")
@@ -26,6 +26,24 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
     ..items
   )
 }
+
+// Mappatura dei mesi in italiano in numeri (1-12)
+#let mesiIt = (
+  "gennaio": 1, "febbraio": 2, "marzo": 3, "aprile": 4,
+  "maggio": 5, "giugno": 6, "luglio": 7, "agosto": 8,
+  "settembre": 9, "ottobre": 10, "novembre": 11, "dicembre": 12,
+)
+
+// Conversione di data estesa in formato standard datetime
+#let parserData(s) = {
+  let parti = s.trim().split(" ")
+  let g = int(parti.at(0))
+  let m = mesiIt.at(lower(parti.at(1)))
+  let a = int(parti.at(2))
+  datetime(year: a, month: m, day: g)
+}
+
+#let dataVerbali = datetime(year: 2026, month: 11, day: 03)
 
 #let conf(
   tipo: none,
@@ -106,7 +124,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
       gutter: 0.5cm,
       align: horizon,
 
-      image("/Documentazione/Template/Assets/logo-unipd.svg", height: 2cm),
+      image("./Assets/logo-unipd.svg", height: 2cm),
       line(angle: 90deg, length: 2cm, stroke: 0.5pt + deco-line),
       image(logo, height: 1cm)
     )
@@ -177,13 +195,13 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
 
     // Firme
     align(left + bottom)[#text(weight: "bold", style: "italic")[#verificatore]],
-    if azienda != none {
+    if azienda != none and parserData(data) >= dataVerbali {
       align(right + bottom)[#line(length: 85%, stroke: 0.5pt + deco-line)]
     },
 
     // Didascalie
     align(left)[Firma del verificatore],
-    if azienda != none {
+    if azienda != none and parserData(data) >= dataVerbali {
       align(right)[Firma del referente aziendale]
     }
   )
