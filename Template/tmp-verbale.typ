@@ -27,6 +27,24 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
   )
 }
 
+// Mappatura dei mesi in italiano in numeri (1-12)
+#let mesiIt = (
+  "gennaio": 1, "febbraio": 2, "marzo": 3, "aprile": 4,
+  "maggio": 5, "giugno": 6, "luglio": 7, "agosto": 8,
+  "settembre": 9, "ottobre": 10, "novembre": 11, "dicembre": 12,
+)
+
+// Conversione di data estesa in formato standard datetime
+#let parserData(s) = {
+  let parti = s.trim().split(" ")
+  let g = int(parti.at(0))
+  let m = mesiIt.at(lower(parti.at(1)))
+  let a = int(parti.at(2))
+  datetime(year: a, month: m, day: g)
+}
+
+#let dataVerbali = datetime(year: 2026, month: 11, day: 03)
+
 #let conf(
   tipo: none,
   data: none,
@@ -177,13 +195,13 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
 
     // Firme
     align(left + bottom)[#text(weight: "bold", style: "italic")[#verificatore]],
-    if azienda != none {
+    if azienda != none and parserData(data) >= dataVerbali {
       align(right + bottom)[#line(length: 85%, stroke: 0.5pt + deco-line)]
     },
 
     // Didascalie
     align(left)[Firma del verificatore],
-    if azienda != none {
+    if azienda != none and parserData(data) >= dataVerbali {
       align(right)[Firma del referente aziendale]
     }
   )
