@@ -1,0 +1,114 @@
+name: Pubblica listing dinamico dei PDF
+
+on:
+  workflow_run:
+    workflows: ["Compila PDF"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-site:
+    # Esegue solo se la prima action è terminata con successo
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # Scarica la cronologia Git completa per leggere le date dei file .typ
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Scarica i PDF compilati generati dal primo workflow
+      - name: Scarica i PDF compilati
+        uses: actions/download-artifact@v4
+        with:
+          name: pdf-documents
+          path: _site
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Genera l'index.html
+      - name: Genera index.html
+        run: |
+          REPO_DIR="$PWD"
+          NOW=$(date +%s)
+          SEVEN_DAYS_AGO=$((NOW - 7 * 86400))
+
+          cd _site
+          echo '<h1>Indice dei file</h1>' > index.html
+          current_dir=""
+
+          find . -type f -name '*.pdf' | sort | while read -r f; do
+            pdf_rel="${f#./}"
+            dir_name=$(dirname "$pdf_rel")
+            file_name=$(basename "$pdf_rel")
+            date_tag=""
+
+            # Cambio cartella (testo normale con margini ridotti)
+            if [ "$dir_name" != "$current_dir" ]; then
+              if [ -n "$current_dir" ]; then
+                echo '</ul>' >> index.html
+              fi
+              current_dir="$dir_name"
+              
+              if [ "$dir_name" = "." ]; then
+                echo '<p style="margin: 1rem 0 0.2rem 0;">/</p>' >> index.html
+              else
+                echo "<p style=\"margin: 1rem 0 0.2rem 0;\">$dir_name/</p>" >> index.html
+              fi
+              echo '<ul style="list-style-type: none; padding-left: 1rem; margin: 0;">' >> index.html
+            fi
+
+            # Trova il file .typ corrispondente
+            typ_rel="${pdf_rel%.pdf}.typ"
+            typ_file=""
+            if [ -f "$REPO_DIR/$typ_rel" ]; then
+              typ_file="$REPO_DIR/$typ_rel"
+            else
+              typ_file=$(find "$REPO_DIR" -type f -name "${file_name%.pdf}.typ" -not -path '*/.*' | head -n 1)
+            fi
+
+            # Recupera data da Git
+            if [ -n "$typ_file" ]; then
+              last_commit=$(git -C "$REPO_DIR" log -1 --format="%ct" -- "$typ_file")
+              last_date=$(git -C "$REPO_DIR" log -1 --date=format:'%d/%m/%Y' --format="%cd" -- "$typ_file")
+
+              if [ -n "$last_commit" ]; then
+                if [ "$last_commit" -gt "$SEVEN_DAYS_AGO" ]; then
+                  date_tag="<strong>$last_date</strong>"
+                else
+                  date_tag="$last_date"
+                fi
+              fi
+            fi
+
+            if [ -n "$date_tag" ]; then
+              echo "<li>$date_tag - <a href=\"$pdf_rel\">$file_name</a></li>" >> index.html
+            else
+              echo "<li><a href=\"$pdf_rel\">$file_name</a></li>" >> index.html
+            fi
+          done
+
+          if [ -n "$current_dir" ]; then
+            echo '</ul>' >> index.html
+          fi
+
+      # Pubblica su GitHub Pages
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy su GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
