@@ -1,0 +1,33 @@
+name: Compila PDF
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: typst-community/setup-typst@v3
+
+      - name: Compila i documenti Typst
+        run: |
+          while IFS= read -r -d '' f; do
+            out="_site/${f#./}"
+            out="${out%.typ}.pdf"
+            mkdir -p "$(dirname "$out")"
+            echo "Compilo $f -> $out"
+            typst compile --root . --font-path Template/Fonts --ignore-system-fonts "$f" "$out"
+          done < <(find . -name '*.typ' -not -path './.*' -not -path './Template/*' -not -name '_*' -print0)
+
+      # Salva i PDF generati come artefatto per la seconda action
+      - name: Salva artefatto PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-documents
+          path: _site/
