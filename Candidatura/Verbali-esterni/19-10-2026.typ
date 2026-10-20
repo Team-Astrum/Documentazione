@@ -9,6 +9,7 @@
   azienda: "Haule SRL - Valentino Baraldo",
   presenti: ("Thomas Morettin ", "Gianluca Bacco ", "Corrado Bacco", "Gianluca Brotto ", "Matteo De Col", "Filippo De Guio", "Samuele Gobbi"),
   assenti: (),
+  responsabile: "Filippo De Guio",
   redattore: "De Col Matteo",
   verificatore: "Filippo De Guio",
   changelog: (
