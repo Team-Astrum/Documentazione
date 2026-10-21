@@ -37,8 +37,6 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
 
 #let conf(
   titolo: none,
-  versione: none,
-  data: none,
   status: none,   // Valori: In bozza, Approvato
   utilizzo: none,   // Valori: Interno, Esterno
   redazione: (),
@@ -96,6 +94,15 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
     }
   )
 
+  // Metadati letti dal sito (non producono alcun output visibile)
+  [#metadata((
+    categoria: "documento",
+    titolo: titolo, tipo: utilizzo,
+    versione: if changelog.len() > 0 { changelog.first().ver } else { none },
+    data-modifica: if changelog.len() > 0 { changelog.first().data } else { none },
+    status: status
+  )) <info>]
+
   // Decorazione per frontespizio
   let details = place(bottom + right, dx: 2cm, dy: 4cm)[
     #box(width: 0pt, height: 0pt)[
@@ -134,8 +141,8 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
         stroke: 0.5pt + deco-line,
         fill: white,
         
-        [*Versione*], [#versione],
-        [*Data*], [#data],
+        [*Versione*], [#if changelog.len() > 0 { changelog.first().ver } else { none }],
+        [*Data*], [#if changelog.len() > 0 { changelog.first().data } else { none }],
         [*Stato*], [#status],
         [*Uso*], [#utilizzo],
         [*Redazione*], [#redazione.join(", ")],
