@@ -1,0 +1,24 @@
+# Normalizza automaticamente i file di testo a LF nel repository
+* text=auto
+
+# Documentazione, codice e configurazione: sempre LF (anche su Windows)
+*.typ text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.bib text eol=lf
+*.sh text eol=lf
+
+# SVG è testo (XML): così Git mostra i diff
+*.svg text eol=lf
+
+# File binari: Git non tocca i fine riga
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.ttf binary
+*.otf binary
+*.pdf binary
