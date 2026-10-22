@@ -6,7 +6,7 @@
   ora-inizio: "15:00",
   ora-fine: "16:00",
   luogo: "Google Meet",
-  azienda: "Sanmarco Informatica SpA - Linda Benozzato, ",
+  azienda: "Sanmarco Informatica SpA - Linda Benozzato, Luca Marcon",
   presenti: ("Thomas Morettin ", "Gianluca Bacco ", "Corrado Bacco", "Gianluca Brotto ", "Matteo De Col", "Filippo De Guio", "Samuele Gobbi"),
   assenti: (),
   responsabile: "Filippo De Guio",
