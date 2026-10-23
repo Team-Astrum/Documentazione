@@ -41,7 +41,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
   utilizzo: none,   // Valori: Interno, Esterno
   redazione: (),
   verifica: (),
-  approvazione: (),
+  approvazione: none,
   changelog: (),    // Array per il registro modifiche
   body
 ) = {
@@ -64,7 +64,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
         #set text(size: 10pt, fill: txt-gray)
         #grid(
           columns: (1fr, 1fr),
-          align(left)[*Astrum* - Verbale #utilizzo],
+          align(left)[*Astrum* - Documento #utilizzo],
           align(right)[#titolo]
         )
         #v(-0.5em)
@@ -80,7 +80,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
         #set text(size: 8pt, fill: txt-gray)
         #grid(
           columns: (1fr, 1fr, 1fr),
-          align(left)[Versione: #versione],
+          align(left)[Versione: #if changelog.len() > 0 { changelog.first().ver } else { none }],
           align(center)[Uso: #utilizzo],
           align(right)[Pagina
           #if here().page-numbering() == "I" [
@@ -93,15 +93,6 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
       ]
     }
   )
-
-  // Metadati letti dal sito (non producono alcun output visibile)
-  [#metadata((
-    categoria: "documento",
-    titolo: titolo, tipo: utilizzo,
-    versione: if changelog.len() > 0 { changelog.first().ver } else { none },
-    data-modifica: if changelog.len() > 0 { changelog.first().data } else { none },
-    status: status
-  )) <info>]
 
   // Decorazione per frontespizio
   let details = place(bottom + right, dx: 2cm, dy: 4cm)[
@@ -147,7 +138,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
         [*Uso*], [#utilizzo],
         [*Redazione*], [#redazione.join(", ")],
         [*Verifica*], [#verifica.join(", ")],
-        [*Approvazione*], [#approvazione.join(", ")]
+        [*Approvazione*], [#approvazione]
       )
     ]
     #v(1fr)
@@ -193,4 +184,11 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
   counter(page).update(1)   // Reset del conteggio
   
   body
+
+  if lower(status) == "approvato" {
+    v(1.5cm)
+    text(weight: "bold", style: "italic")[#approvazione]
+    linebreak()
+    [Firma del responsabile]
+  }
 }

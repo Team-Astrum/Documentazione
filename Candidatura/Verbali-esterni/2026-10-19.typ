@@ -2,7 +2,7 @@
 
 #show: conf.with(
   tipo: "Esterno", 
-  data: "19 Ottobre 2026",
+  data: "2026-10-19",
   ora-inizio: "12:30",
   ora-fine: "13:00",
   luogo: "Google Meet",

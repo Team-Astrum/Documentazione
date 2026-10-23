@@ -2,7 +2,7 @@
 
 #show: conf.with(
   tipo: "Interno", 
-  data: "16 Ottobre 2026",
+  data: "2026-10-16",
   ora-inizio: "14:30",
   ora-fine: "17:00",
   luogo: "Discord",

@@ -27,19 +27,12 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
   )
 }
 
-// Mappatura dei mesi in italiano in numeri (1-12)
-#let mesiIt = (
-  "gennaio": 1, "febbraio": 2, "marzo": 3, "aprile": 4,
-  "maggio": 5, "giugno": 6, "luglio": 7, "agosto": 8,
-  "settembre": 9, "ottobre": 10, "novembre": 11, "dicembre": 12,
-)
-
 // Conversione di data estesa in formato standard datetime
 #let parserData(s) = {
-  let parti = s.trim().split(" ")
-  let g = int(parti.at(0))
+  let parti = s.trim().split("-")
+  let a = int(parti.at(0))
   let m = mesiIt.at(lower(parti.at(1)))
-  let a = int(parti.at(2))
+  let g = int(parti.at(2))
   datetime(year: a, month: m, day: g)
 }
 
@@ -103,14 +96,6 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
       ]
     }
   )
-
-  // Metadati letti dal sito (non producono alcun output visibile)
-  [#metadata((
-    categoria: "verbale",
-    tipo: tipo, data: data,
-    versione: if changelog.len() > 0 { changelog.first().ver } else { none },
-    data-modifica: if changelog.len() > 0 { changelog.first().data } else { none }
-  )) <info>]
 
   // Decorazione per frontespizio
   let details = place(bottom + right, dx: 2cm, dy: 4cm)[
