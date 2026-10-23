@@ -79,9 +79,8 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
         #v(-0.25em)
         #set text(size: 8pt, fill: txt-gray)
         #grid(
-          columns: (1fr, 1fr, 1fr),
+          columns: (1fr, 1fr),
           align(left)[Versione: #if changelog.len() > 0 { changelog.first().ver } else { none }],
-          align(center)[Uso: #utilizzo],
           align(right)[Pagina
           #if here().page-numbering() == "I" [
               #counter(page).display("I")
