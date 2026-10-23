@@ -22,9 +22,10 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
 
 #let conf(
   // Variabili di template
-  settimana: none,
+  sprint: none,
   data: none,
   espositore: none,
+  membri: (),
   body
 ) = {
   // Decorazione per frontespizio
@@ -38,11 +39,25 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
     ]
   ]
 
+  // Elenco dei membri per pagina finale
+  let membro(membro, matricola, figura) = {
+    text(size: 18pt, weight: "bold", fill: txt-color)[#membro]
+    linebreak()
+    text(size: 12pt, fill: txt-gray)[#matricola]
+    linebreak()
+
+    if lower(figura) == "responsabile" {
+      text(size: 14pt, fill: light-accent)[#figura]
+    } else {
+      text(size: 14pt, fill: dark-accent)[#figura]
+    }
+  }
+
   // Configurazione pagine generiche slide
   set page(
     paper: "presentation-16-9",   // Formato
     margin: (top: 2.5cm, bottom: 2.5cm, left: 2.5cm, right: 2.5cm),   // Margini
-    
+
     // Inserimento decorazione solo nella frontespizio
     background: context {
       if here().page() == 1 { details }
@@ -55,7 +70,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
         #grid(
           columns: (1fr, 1fr),    // Divisione a 2 colonne
           align(left)[*Astrum* - Diario di Bordo],
-          align(right)[Settimana #settimana]
+          align(right)[Sprint #sprint]
         )
         #v(-0.5em)
         #line(length: 100%, stroke: 0.5pt + light-accent)
@@ -71,7 +86,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
         #grid(
           columns: (1fr, 1fr),
           align(left)[Espone: *#espositore* (Responsabile)],
-          align(right)[Pagina #counter(page).display("1 / 1", both: true)]    // Contatore pagine
+          align(right)[Pagina #counter(page).display((cur, total) => [#cur / #(total - 1)], both: true)]    // Contatore pagine
         )
       ]
     }
@@ -82,7 +97,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
   
   // Frontespizio
   align(center + horizon)[
-    #text(size: 34pt, weight: "bold", fill: light-accent)[Diario di Bordo]
+    #text(size: 40pt, weight: "bold", fill: light-accent)[Diario di Bordo]
     #grid(    // Logo UniPD + logo del gruppo
       columns: (auto, auto, auto),
       gutter: 1cm,
@@ -93,14 +108,49 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
       image(logo, height: 1.5cm)
     )
     #v(2em)
-    #text(size: 18pt, fill: txt-gray)[
-      *Settimana:* #settimana \
-      *Data:* #data \
-      *Espone:* #espositore (Responsabile)
-    ]
+    #grid(
+      columns: (1fr, 1fr),
+      align: (left, right),
+      text(size: 18pt, fill: txt-gray)[
+        *Sprint:* #sprint \
+        *Data:* #data \
+        *Espone:* #espositore (Responsabile)
+      ],
+
+      text(size: 18pt, fill: txt-gray)[
+        *E-mail:* #link("mailto:astrum.unipd@gmail.com") \
+        *Sito web:* #link("team-astrum.github.io")
+      ]
+    )
   ]
 
   pagebreak()
   counter(page).update(1)
   body
+
+  set page(
+    header: none,
+    footer: none,
+    background: context { details }
+  )
+
+  align(center + horizon)[
+    #grid(
+      columns: (1fr, 1fr, 1fr, 1fr),
+
+      membro("Corrado Bacco", "2148615", membri.at("Corrado Bacco")),
+      membro("Gianluca Bacco", "2111937", membri.at("Gianluca Bacco")),
+      membro("Gianluca Brotto", "2148626", membri.at("Gianluca Brotto")),
+      membro("Matteo De Col", "2148619", membri.at("Matteo De Col")),
+    )
+    
+    #v(3em)
+    #grid(
+      columns: (1fr, 1fr, 1fr),
+      
+      membro("Filippo De Guio", "2113177", membri.at("Filippo De Guio")),
+      membro("Samuele Gobbi", "2148004", membri.at("Samuele Gobbi")),
+      membro("Thomas Morettin", "2111001", membri.at("Thomas Morettin")),
+    )
+  ]
 }
