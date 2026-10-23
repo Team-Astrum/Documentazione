@@ -12,7 +12,7 @@
   redattore: "Gianluca Bacco",
   verificatore: "Corrado Bacco",
   changelog: (
-    (ver: "1.0.0", data: "16/10/2026", autore: "Gianluca Bacco", ruolo: "Redattore", desc: "Creazione verbale."),
+    (ver: "1.0.0", data: "2026-10-16", autore: "Gianluca Bacco", ruolo: "Redattore", desc: "Creazione verbale."),
   )
 )
 

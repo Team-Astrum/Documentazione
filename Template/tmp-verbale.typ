@@ -31,7 +31,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
 #let parserData(s) = {
   let parti = s.trim().split("-")
   let a = int(parti.at(0))
-  let m = mesiIt.at(lower(parti.at(1)))
+  let m = int(parti.at(1))
   let g = int(parti.at(2))
   datetime(year: a, month: m, day: g)
 }

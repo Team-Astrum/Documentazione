@@ -13,7 +13,7 @@
   redattore: "De Col Matteo",
   verificatore: "Gianluca Brotto",
   changelog: (
-    (ver: "1.0.0", data: "21/10/2026", autore: "De Col Matteo", ruolo: "Redattore", desc: "Creazione e stesura verbale."),
+    (ver: "1.0.0", data: "2026-10-21", autore: "De Col Matteo", ruolo: "Redattore", desc: "Creazione e stesura verbale."),
   )
 )
 

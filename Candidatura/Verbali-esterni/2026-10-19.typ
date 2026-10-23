@@ -13,8 +13,8 @@
   redattore: "De Col Matteo",
   verificatore: "Filippo De Guio",
   changelog: (
-    (ver: "1.1.0", data: "20/10/2026", autore: "De Col Matteo", ruolo: "Redattore", desc: "Correzione errori minori."),
-    (ver: "1.0.0", data: "19/10/2026", autore: "De Col Matteo", ruolo: "Redattore", desc: "Creazione e stesura verbale.")
+    (ver: "1.1.0", data: "2026-10-20", autore: "De Col Matteo", ruolo: "Redattore", desc: "Correzione errori minori."),
+    (ver: "1.0.0", data: "2026-10-19", autore: "De Col Matteo", ruolo: "Redattore", desc: "Creazione e stesura verbale.")
 
   )
 )
