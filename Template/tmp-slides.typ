@@ -57,7 +57,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
     paper: "presentation-16-9",   // Formato
     margin: (top: 2.5cm, bottom: 2.5cm, left: 2.5cm, right: 2.5cm),   // Margini
 
-    // Inserimento decorazione solo nella frontespizio
+    // Inserimento decorazione solo nel frontespizio
     background: context {
       if here().page() == 1 { details }
     },
@@ -97,29 +97,36 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
   // Frontespizio
   align(center + horizon)[
     #text(size: 40pt, weight: "bold", fill: light-accent)[Diario di Bordo]
+    #v(0.5em)
     #grid(    // Logo UniPD + logo del gruppo
       columns: (auto, auto, auto),
       gutter: 1cm,
       align: horizon,
 
       image("./Assets/logo-unipd.svg", height: 3cm),
-      line(angle: 90deg, length: 3cm, stroke: 0.5pt + deco-line),
+      line(angle: 90deg, length: 3cm, stroke: 1.5pt + txt-gray),
       image(logo, height: 1.5cm)
     )
-    #v(2em)
-    #grid(
-      columns: (1fr, 1fr),
-      align: (left, right),
-      text(size: 18pt, fill: txt-gray)[
-        *Sprint:* #sprint \
-        *Data:* #data \
-      ],
-
-      text(size: 18pt, fill: txt-gray)[
-        *E-mail:* #link("mailto:astrum.unipd@gmail.com") \
-        *Sito web:* #link("team-astrum.github.io")
+    #v(1.6em) // Spazio dal logo ridotto
+    
+    #align(center)[
+      #block(width: 80%)[ // Blocco centrale per compattare e allineare perfettamente i testi
+        #set text(size: 16pt, fill: txt-gray)
+        #set par(leading: 0.55em) // Interlinea compatta tra le righe
+        #grid(
+          columns: (1fr, 1fr),
+          align: (top + left, top + right), // Allineamento in alto per una perfetta simmetria
+          [
+            *Sprint:* #sprint \
+            *Data:* #data
+          ],
+          [
+            *E-mail:* #link("mailto:astrum.unipd@gmail.com") \
+            *Sito web:* #link("team-astrum.github.io")
+          ]
+        )
       ]
-    )
+    ]
   ]
 
   pagebreak()
