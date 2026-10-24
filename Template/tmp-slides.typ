@@ -24,7 +24,6 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
   // Variabili di template
   sprint: none,
   data: none,
-  espositore: none,
   membri: (),
   body
 ) = {
@@ -85,7 +84,7 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
         #set text(font: font, size: 10pt, fill: txt-gray)
         #grid(
           columns: (1fr, 1fr),
-          align(left)[Espone: *#espositore* (Responsabile)],
+          align(left)[#link("mailto:astrum.unipd@gmail.com")],
           align(right)[Pagina #counter(page).display((cur, total) => [#cur / #(total - 1)], both: true)]    // Contatore pagine
         )
       ]
@@ -114,7 +113,6 @@ Le variabili vengono istanziate all'inizio di ciascuna presentazione.
       text(size: 18pt, fill: txt-gray)[
         *Sprint:* #sprint \
         *Data:* #data \
-        *Espone:* #espositore (Responsabile)
       ],
 
       text(size: 18pt, fill: txt-gray)[
