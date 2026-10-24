@@ -14,29 +14,34 @@
   )
 )
 
-#slide-title("Retrospettiva: Cose fatte nel periodo")
+#slide-title("Retrospettiva: Attività svolte")
 
-Negli ultimi 7 giorni, il gruppo si è concentrato sulle seguenti attività:
+Attività svolte dal gruppo nel periodo di riferimento:
 
-- *Analisi dei Requisiti:*
-  - Stesura dei casi d'uso relativi all'autenticazione (UC1 - UC5).
-  - Creazione dei diagrammi UML dei casi d'uso.
+- *Organizzazione del gruppo:*
+  - Creazione di nome, logo, mail.
+  - Scelta dei canali di comunicazione (WhatsApp e Discord).
 - *Infrastruttura:*
   - Setup della repository GitHub e pipeline Typst.
-  - Creazione del sito vetrina (Cruscotto) per le metriche.
-- *Metriche di periodo:*
-  - Ore rendicontate: *22h* (in linea con il preventivo).
+  - Creazione del sito vetrina (Dashboard) per le metriche.
+- *Incontri e verbali:*
+  - Incontro e scrittura verbale con C0 - Sanmarco Informatica S.p.A. e C8 - Halue S.r.l.
+- *Valutazioni:*
+  - Valutazione capitolati e compilazione preventivo di costi per il capitolato C0.
 
 #pagebreak()
 
 #slide-title("Pianificazione, Difficoltà e Dubbi")
 
 *Cose da fare nel prossimo periodo:*
-- Stesura dei requisiti qualitativi e di vincolo.
+- Incontro e scrittura verbale con C6 - Var Group S.p.A.
+- Lettera di presentazione.
+- Stesura del way of working.
 - Avvio dello sviluppo del Proof of Concept (PoC) in TypeScript.
 
 *Difficoltà riscontrate:*
 - Nessuna difficoltà critica rilevante in questo sprint.
 
 *Dubbi per il Committente / Proponente:*
-- *? Per il Prof. Cardin:* È preferibile mantenere i casi d'uso ad alto livello o dettagliare già i sotto-scenari alternativi?
+- È preferibile mantenere i casi d'uso ad alto livello o dettagliare già i sotto-scenari alternativi?
+- Dubbi sulla figura dell'analista e le sue mansioni, nella fattispecie in merito al ruolo che esso svolge a seguito del RTB.
