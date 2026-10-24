@@ -3,7 +3,7 @@
 //
 //  Uso in un altro file:
 //    #import "template-diario-di-bordo.typ": *
-//    #show: diario.with(numero: "2", data: "03-11-2026")
+//    #show: diario.with(numero: "2", data: 2026-11-03")
 //    = Attività completate
 //    - ...
 //
@@ -69,7 +69,7 @@
 // ---------- Template principale ----------
 #let diario(
   numero: "N",
-  data: "GG-MM-AAAA",
+  data: "AAAA-MM-GG",
   titolo: "Diario di Bordo",
   body,
 ) = {

@@ -3,9 +3,9 @@
 // Usa il template: copertina, intestazione, piè di pagina e slide finale
 // con i nomi sono già gestiti da "template-diario-di-bordo.typ".
 
-#import "../../Template/template-diario-di-bordo.typ": *
+#import "../../Template/tmp-slides-v2.typ": *
 
-#show: diario.with(numero: "1", data: "26-10-2026")
+#show: diario.with(numero: "1", data: "2026-10-26")
 
 = Attività completate
 
@@ -27,3 +27,4 @@
 = Difficoltà incontrate e dubbi
 
 - Dubbi sul piano burocratico
+- Dubbi sulla figura dell'analista e le sue mansioni
